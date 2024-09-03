@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class Kenshi : MonoBehaviour
+public class Kenshi : PlayerBase
 {
     enum playerMode
     {
