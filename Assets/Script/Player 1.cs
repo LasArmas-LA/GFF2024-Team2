@@ -26,6 +26,7 @@ public class Kenshi : PlayerBase
     [SerializeField]
     private GameObject boss = null;
 
+    
 
 
     [SerializeField]
@@ -51,10 +52,13 @@ public class Kenshi : PlayerBase
     [SerializeField]
     private Material lineMaterial = null;
 
+    public PlayerBase pb1;
 
     private GameObject mpobj = null;
     private bool canAttackFlag = false;
     private bool targetFlag = false;
+
+    [SerializeField]
     private LineRenderer lineRenderer = null;
     void Start()
     {
@@ -62,11 +66,11 @@ public class Kenshi : PlayerBase
         mpobj = cursorPoint.transform.GetChild(0).gameObject;
         mpobj.SetActive(false);
 
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.material = lineMaterial;
-        lineRenderer.alignment = LineAlignment.View;
+
+
     }
 
     void Update()
@@ -124,10 +128,16 @@ public class Kenshi : PlayerBase
     private void MovetoTarget()
     {
         if (lineRenderer.enabled == false) { lineRenderer.enabled = true; }
+
+        Vector3 startPos = this.transform.position;
+        startPos.y = 0.1f;
+
+        Vector3 endPos = cursorPoint.transform.position;
+        endPos.y = 0.1f;
         var positions = new Vector3[]
         {
-            this.transform.position,
-            cursorPoint.transform.position,
+            startPos,
+            endPos,
         };
         lineRenderer.SetPositions(positions);
         Move(cursorPoint);

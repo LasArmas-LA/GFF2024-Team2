@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBase
+public class PlayerBase : MonoBehaviour
 {
     public float playerHP;
     public float attack;
@@ -22,5 +22,9 @@ public class PlayerBase
     public virtual void Ultimate()
     { 
     }
+
+
+    //test
+    public int testA;
 
 }
