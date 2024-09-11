@@ -5,6 +5,28 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject attack01;
+
+    [SerializeField]
+    private GameObject attack01Point;
+
+    [SerializeField]
+    private GameObject attackParent;
+
+    [SerializeField]
+    private GameObject damageArea;
+
+    [SerializeField]
+    private GameObject daParent;
+
+
+    private bool attack01Flag = false;
+
+    private bool damageAreaFlag = false;
+
+
+
     enum bossMode
     {
         Charge,
@@ -32,19 +54,19 @@ public class Boss : MonoBehaviour
         {
             case bossMode.Charge:
                 Idle();
-                break;
+            break;
             case bossMode.Idle:
                 Idle();
-                break;
+            break;
             case bossMode.Attack01:
-
-                break;
+                Attack01();
+            break;
         }
     }
 
     private void Idle()
     {
-        Invoke("IdleToAttack01",2);
+        Invoke("IdleToAttack01",5);
     }
     private void IdleToAttack01()
     {
@@ -53,7 +75,29 @@ public class Boss : MonoBehaviour
 
     private void Attack01()
     {
-
+        Quaternion quaternion = Quaternion.Euler(transform.forward);
+        if(!attack01Flag)
+        {
+            Instantiate(attack01,  attack01Point.transform.position, quaternion, attackParent.transform);
+            attack01Flag = true;
+            Invoke("Attack01TOIdle", 5);
+        }
+        
+       
     }
+
+    
+
+    private void Attack01TOIdle()
+    {
+
+        Quaternion quaternion = Quaternion.Euler(transform.forward);
+
+        Instantiate(damageArea, attack01Point.transform.position, quaternion, daParent.transform);
+
+        mode = bossMode.Idle;
+        attack01Flag = false;
+    }
+    
 
 }
