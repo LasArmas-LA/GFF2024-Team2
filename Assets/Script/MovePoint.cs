@@ -5,10 +5,16 @@ using UnityEngine;
 public class SelectPoint : MonoBehaviour
 {
     [SerializeField]
-    private GameObject kensiObj = null;
+    private GameObject player01Obj = null;
 
     [SerializeField]
-    private GameObject juusensiObj = null;
+    private GameObject player02Obj = null;
+
+
+
+    void Awake()
+    {
+    }
 
 
     private bool rayFlag = true;
@@ -38,9 +44,8 @@ public class SelectPoint : MonoBehaviour
             {
                 if(hit.collider.gameObject.CompareTag("Ground"))
                 {
-                    kensiObj.GetComponent<Kenshi>().trueTargetFlag();
-                    juusensiObj.GetComponent<Juusensi>().trueTargetFlag();
-
+                    player01Obj.GetComponent<Player1>().TrueTargetFlag();
+                    player02Obj.GetComponent<Player2>().TrueTargetFlag();
                     transform.position = new Vector3(hit.point.x, 0, hit.point.z);
                     rayFlag = true;
                     clickTime = 0.0f;
