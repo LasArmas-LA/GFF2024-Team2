@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -24,6 +25,9 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     public GameObject boss = null;
 
+    [SerializeField]
+    public TextMeshProUGUI buttonText = null;
+
 
     [SerializeField]
     [Header("âÒì]ë¨ìx")]
@@ -46,39 +50,67 @@ public class PlayerBase : MonoBehaviour
     public float lineWidth = 0;
 
     [SerializeField]
+    [Header("ëÃóÕ")]
+    public float playerHP;
+
+    [SerializeField]
+    [Header("ñhå‰óÕ")]
+    public float playerDef;
+
+    [SerializeField]
+    [Header("çUåÇóÕ")]
+    public float playerAtk;
+
+
+
+
+    [SerializeField]
     public Material lineMaterial = null;
 
 
-    private GameObject mpobj = null;
-    public bool canAttackFlag = false;
-    public bool targetFlag = false;
+    public GameObject mpobj = null;
+    public bool canActionFlag = false;
+    public bool moveFlag = false;
 
     [SerializeField]
     public LineRenderer lineRenderer = null;
 
-    private void Awake()
-    {
-        mpobj = cursorPoint.transform.GetChild(0).gameObject; 
-        mpobj.SetActive(false);
 
-        lineRenderer.startWidth = lineWidth;
-        lineRenderer.endWidth = lineWidth;
-        lineRenderer.material = lineMaterial;
+
+    public GameObject Getmpobj
+    {
+        get { return mpobj; }
     }
 
+
+    public bool SetMoveFlag
+    {
+        set { moveFlag = value; }
+    }
+
+    public bool GetMoveFlag
+    {
+        get { return moveFlag; }
+    }
 
 
 
 
     public void Idle()
     {
-        lineRenderer.enabled = false;
+
         TargetRot(boss);
     }
+
+    
 
 
     public void MovetoTarget()
     {
+        Time.timeScale = 1;
+
+        buttonText.text = "Moving now";
+        canActionFlag = false;
         if (lineRenderer.enabled == false) { lineRenderer.enabled = true; }
 
         //LineÇÃà íuÇì¸óÕ
@@ -98,20 +130,17 @@ public class PlayerBase : MonoBehaviour
         Move(cursorPoint);
         TargetRot(cursorPoint);
     }
+
     public void MovetoBoss()
     {
         Move(boss);
         TargetRot(boss);
     }
+
     public void Attack()
     {
         TargetRot(boss);
     }
-
-
-
-   
-
 
     public void Move(GameObject target)
     {
@@ -142,22 +171,24 @@ public class PlayerBase : MonoBehaviour
 
     }
 
+
+    //çUåÇÇçsÇ§ÇΩÇﬂÇ…à⁄ìÆÇ∑ÇÈÇ©ÇÃêÿÇËë÷Ç¶
     public void AIFlag()
     {
-        if (canAttackFlag)
+        if (canActionFlag)
         {
-            canAttackFlag = false;
+            canActionFlag = false;
         }
         else
         {
-            canAttackFlag = true;
+            canActionFlag = true;
         }
     }
 
-    public GameObject Getmpobj
+    
+
+    public virtual void Skils()
     {
-        get { return mpobj; }
-
-
+        Debug.Log("çUåÇ!!");
     }
 }

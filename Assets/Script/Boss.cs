@@ -6,10 +6,10 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField]
-    private GameObject attack01;
+    private GameObject[] attack;
 
     [SerializeField]
-    private GameObject attack01Point;
+    private GameObject[] attackPoint;
 
     [SerializeField]
     private GameObject attackParent;
@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
     private GameObject daParent;
 
 
-    private bool attack01Flag = false;
+    private bool attackFlag = false;
 
     private bool damageAreaFlag = false;
 
@@ -59,7 +59,7 @@ public class Boss : MonoBehaviour
                 Idle();
             break;
             case bossMode.Attack01:
-                Attack01();
+                Attack02();
             break;
         }
     }
@@ -76,11 +76,11 @@ public class Boss : MonoBehaviour
     private void Attack01()
     {
         Quaternion quaternion = Quaternion.Euler(transform.forward);
-        if(!attack01Flag)
+        if(!attackFlag)
         {
-            Instantiate(attack01,  attack01Point.transform.position, quaternion, attackParent.transform);
-            attack01Flag = true;
-            Invoke("Attack01TOIdle", 5);
+            Instantiate(attack[0], attackPoint[0].transform.position, quaternion, attackParent.transform);
+            attackFlag = true;
+            Invoke("Attack01ToIdle", 5);
         }
         
        
@@ -93,11 +93,35 @@ public class Boss : MonoBehaviour
 
         Quaternion quaternion = Quaternion.Euler(transform.forward);
 
-        Instantiate(damageArea, attack01Point.transform.position, quaternion, daParent.transform);
+        Instantiate(damageArea, attackPoint[0].transform.position, quaternion, daParent.transform);
 
         mode = bossMode.Idle;
-        attack01Flag = false;
+        attackFlag = false;
     }
-    
 
+    private void Attack02()
+    {
+        Quaternion quaternion = Quaternion.Euler(0,0,1);
+        if (!attackFlag)
+        {
+            Instantiate(attack[1], attackPoint[1].transform.position, quaternion, attackParent.transform);
+            attackFlag = true;
+            Invoke("Attack02ToIdle", 5);
+        }
+
+
+    }
+
+
+
+    private void Attack02ToIdle()
+    {
+
+        Quaternion quaternion = Quaternion.Euler(0,-1,0);
+
+        Instantiate(damageArea, attackPoint[1].transform.position, quaternion, daParent.transform);
+
+        mode = bossMode.Idle;
+        attackFlag = false;
+    }
 }
