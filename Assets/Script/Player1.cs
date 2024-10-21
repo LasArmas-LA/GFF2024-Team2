@@ -31,6 +31,7 @@ public class Player1 : PlayerBase
 
 
 
+
     // Update is called once per frame
     void Update()
     {
@@ -116,7 +117,7 @@ public class Player1 : PlayerBase
     private void DebugLogOutput()
     {
         SelectPoint point = cursorPoint.GetComponent<SelectPoint>();
-        Debug.Log(point.GetCPFlag);
+        Debug.Log(moveFlag);
     }
 
     public override void Skils()

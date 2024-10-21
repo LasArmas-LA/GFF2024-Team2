@@ -107,7 +107,7 @@ public class PlayerBase : MonoBehaviour
 
     public void MovetoTarget()
     {
-        Time.timeScale = 1;
+
 
         buttonText.text = "Moving now";
         canActionFlag = false;

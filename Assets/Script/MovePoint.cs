@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SelectPoint : MonoBehaviour
 {
@@ -53,11 +52,13 @@ public class SelectPoint : MonoBehaviour
 
                     if (player1.GetMoveFlag)
                     {
+                        Time.timeScale = 1f;
                         cursorPoint[0].SetActive(true);
                         player1.SetMoveFlag = false;
                     }
                     if (player2.GetMoveFlag)
                     {
+                        Time.timeScale = 1f;
                         cursorPoint[1].SetActive(true);
                         player1.SetMoveFlag = false;
                     }
