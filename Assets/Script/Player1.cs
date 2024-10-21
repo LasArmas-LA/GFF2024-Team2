@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Player1 : PlayerBase
 {
+    [SerializeField]
+    private Canvas canvas = null;
+
+    private Quaternion defRot;  
     private void Awake()
     {
         mpobj = cursorPoint.transform.GetChild(0).gameObject;
@@ -25,7 +29,7 @@ public class Player1 : PlayerBase
     // Start is called before the first frame update
     void Start()
     {
-
+        defRot = canvas.transform.rotation;
     }
 
 
@@ -96,6 +100,8 @@ public class Player1 : PlayerBase
         }
 
         DebugLogOutput();
+
+        canvas.transform.rotation = defRot;
     }
 
     //プレイヤーがキャラクターを移動させる時の演出切り替え
