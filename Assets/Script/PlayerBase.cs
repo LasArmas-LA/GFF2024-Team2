@@ -20,13 +20,19 @@ public class PlayerBase : MonoBehaviour
 
 
     [SerializeField]
-    public GameObject cursorPoint = null;
+    public GameObject movePoint = null;
+
+    [SerializeField] 
+    public GameObject moveTarget = null;
 
     [SerializeField]
     public GameObject boss = null;
 
     [SerializeField]
     public TextMeshProUGUI buttonText = null;
+
+    [SerializeField]
+    public Canvas canvas = null;
 
 
     [SerializeField]
@@ -67,8 +73,17 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     public Material lineMaterial = null;
 
+    //キャラ選択時処理用
+    [SerializeField]
+    public Material myMaterial = null;
 
-    public GameObject mpobj = null;
+    [SerializeField]
+    public SpriteRenderer sprite = null;
+
+
+
+
+
     public bool canActionFlag = false;
     public bool moveFlag = false;
 
@@ -77,9 +92,9 @@ public class PlayerBase : MonoBehaviour
 
 
 
-    public GameObject Getmpobj
+    public GameObject GetmoveTarget
     {
-        get { return mpobj; }
+        get { return moveTarget; }
     }
 
 
@@ -116,7 +131,7 @@ public class PlayerBase : MonoBehaviour
         //Lineの位置を入力
         Vector3 startPos = this.transform.position;
         startPos.y = 0.1f;
-        Vector3 endPos = cursorPoint.transform.position;
+        Vector3 endPos = movePoint.transform.position;
         endPos.y = 0.1f;
         var positions = new Vector3[]
         {
@@ -127,8 +142,8 @@ public class PlayerBase : MonoBehaviour
         //Line出力
         lineRenderer.SetPositions(positions);
 
-        Move(cursorPoint);
-        TargetRot(cursorPoint);
+        Move(movePoint);
+        TargetRot(movePoint);
     }
 
     public void MovetoBoss()
@@ -185,6 +200,8 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+
+    
     
 
     public virtual void Skils()

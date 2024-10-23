@@ -1,19 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player1 : PlayerBase
+public class Player3 : PlayerBase
 {
-    [SerializeField]
-    private Canvas canvas = null;
 
-    private Quaternion defRot;  
+    private Quaternion defRot;
     private void Awake()
     {
-        mpobj = cursorPoint.transform.GetChild(0).gameObject;
-
+        moveTarget.SetActive(false);
         canActionFlag = false;
         moveFlag = false;
 
@@ -41,28 +36,29 @@ public class Player1 : PlayerBase
     {
         switch (mode)
         {
+            //待機
             case playerMode.Idle:
                 Idle();
                 break;
-
+            //選択した位置に移動
             case playerMode.MovetoTarget:
                 MovetoTarget();
                 break;
-
+            //ボスへ移動
             case playerMode.MovetoBoss:
                 MovetoBoss();
                 break;
-
+            //自動で攻撃
             case playerMode.Attack:
                 Attack();
                 break;
         }
 
         //それぞれの距離を測定
-        float ptplength = Vector3.Distance(transform.position, mpobj.transform.position);
+        float ptplength = Vector3.Distance(transform.position, moveTarget.transform.position);
         float ptblength = Vector3.Distance(transform.position, boss.transform.position);
 
-        SelectPoint point = cursorPoint.GetComponent<SelectPoint>();
+        SelectPoint point = movePoint.GetComponent<SelectPoint>();
         //移動させる
         if (ptplength >= positionRange && point.GetCPFlag)
         {
@@ -75,7 +71,7 @@ public class Player1 : PlayerBase
 
             lineRenderer.enabled = false;
 
-            mpobj.SetActive(false);
+            moveTarget.SetActive(false);
 
             point.SetCPFlag = false;
 
@@ -122,12 +118,12 @@ public class Player1 : PlayerBase
 
     private void DebugLogOutput()
     {
-        SelectPoint point = cursorPoint.GetComponent<SelectPoint>();
+        SelectPoint point = movePoint.GetComponent<SelectPoint>();
         Debug.Log(moveFlag);
     }
 
     public override void Skils()
     {
-
+        Debug.Log("スキル：タンク");
     }
 }

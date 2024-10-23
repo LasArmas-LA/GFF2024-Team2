@@ -11,7 +11,13 @@ public class SelectPoint : MonoBehaviour
     private GameObject player02Obj = null;
 
     [SerializeField]
+    private GameObject player03Obj = null;
+
+    [SerializeField]
     public GameObject[] cursorPoint = null;
+
+    [SerializeField]
+    private LayerMask layermask = 6; 
 
     private bool CPFlag = false;
 
@@ -36,14 +42,14 @@ public class SelectPoint : MonoBehaviour
     {
         Player1 player1 = player01Obj.GetComponent<Player1>();
         Player2 player2 = player02Obj.GetComponent<Player2>();
-        //Player3 player3 = player01Obj.GetComponent<Player3>();
+        Player3 player3 = player01Obj.GetComponent<Player3>();
 
 
         if (Input.GetMouseButtonDown(0) && (player1.GetMoveFlag || player2.GetMoveFlag))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 100f,layermask))
             {
                 if (hit.collider.gameObject.CompareTag("Ground"))
                 {
