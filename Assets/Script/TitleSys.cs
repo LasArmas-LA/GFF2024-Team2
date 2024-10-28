@@ -46,7 +46,8 @@ public class TitleSys : MonoBehaviour
     public void ExitButton()
     {
         //ゲーム終了処理
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     //ロビーに遷移

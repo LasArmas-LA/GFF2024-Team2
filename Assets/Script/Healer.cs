@@ -60,12 +60,12 @@ public class Player3 : PlayerBase
 
         SelectPoint point = movePoint.GetComponent<SelectPoint>();
         //移動させる
-        if (ptplength >= positionRange && point.GetCPFlag)
+        if (ptplength >= positionRange && CPFlag)
         {
             mode = playerMode.MovetoTarget;
         }
         //目的地を入力でフラグfalse
-        else if (ptplength <= positionRange && point.GetCPFlag)
+        else if (ptplength <= positionRange && CPFlag)
         {
             mode = playerMode.Idle;
 
@@ -73,7 +73,7 @@ public class Player3 : PlayerBase
 
             moveTarget.SetActive(false);
 
-            point.SetCPFlag = false;
+            CPFlag = false;
 
         }
 
@@ -98,6 +98,8 @@ public class Player3 : PlayerBase
         DebugLogOutput();
 
         canvas.transform.rotation = defRot;
+
+        HighlightEffect();
     }
 
     //プレイヤーがキャラクターを移動させる時の演出切り替え
@@ -125,5 +127,18 @@ public class Player3 : PlayerBase
     public override void Skils()
     {
         Debug.Log("スキル：タンク");
+    }
+
+    private void HighlightEffect()
+    {
+        if (moveFlag)
+        {
+            sprite.enabled = true;
+            // myMaterial.Set 要相談
+        }
+        else
+        {
+            sprite.enabled = false;
+        }
     }
 }

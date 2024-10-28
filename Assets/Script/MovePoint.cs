@@ -29,23 +29,16 @@ public class SelectPoint : MonoBehaviour
         cursorPoint[2].SetActive(false);
     }
 
-    public bool SetCPFlag
-    {
-        set { CPFlag = value; }
-    }
-    public bool GetCPFlag
-    {
-        get { return CPFlag; }
-    }
+    
 
     void Update()
     {
         Player1 player1 = player01Obj.GetComponent<Player1>();
         Player2 player2 = player02Obj.GetComponent<Player2>();
-        Player3 player3 = player01Obj.GetComponent<Player3>();
+        Player3 player3 = player03Obj.GetComponent<Player3>();
 
 
-        if (Input.GetMouseButtonDown(0) && (player1.GetMoveFlag || player2.GetMoveFlag))
+        if (Input.GetMouseButtonDown(0) && (player1.GetMoveFlag || player2.GetMoveFlag || player3.GetMoveFlag))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,27 +46,34 @@ public class SelectPoint : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Ground"))
                 {
-                    CPFlag = true;
-                    transform.position = new Vector3(hit.point.x, 0, hit.point.z);
+                    
+                   // transform.position = new Vector3(hit.point.x, 0, hit.point.z);
 
                     if (player1.GetMoveFlag)
                     {
                         Time.timeScale = 1f;
+                        cursorPoint[0].transform.position = new Vector3(hit.point.x, 0, hit.point.z);
                         cursorPoint[0].SetActive(true);
                         player1.SetMoveFlag = false;
+                        player1.SetCPFlag = true;
                     }
                     if (player2.GetMoveFlag)
                     {
                         Time.timeScale = 1f;
+                        cursorPoint[1].transform.position = new Vector3(hit.point.x, 0, hit.point.z);
                         cursorPoint[1].SetActive(true);
-                        player1.SetMoveFlag = false;
+                        player2.SetMoveFlag = false;
+                        player2.SetCPFlag = true;
                     }
-                    //if (player3.GetMoveFlag)
-                    //{
-                    //    cursorPoint[2].SetActive(true);
-                    //    player1.SetMoveFlag = false;
-                    //}
-                    Time.timeScale = 1f;
+                    if (player3.GetMoveFlag)
+                    {
+                        Time.timeScale = 1f;
+                        cursorPoint[2].transform.position = new Vector3(hit.point.x, 0, hit.point.z);
+                        cursorPoint[2].SetActive(true);
+                        player3.SetMoveFlag = false;
+                        player3.SetCPFlag = true;
+                    }
+
 
                 }
                 else

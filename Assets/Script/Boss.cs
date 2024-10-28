@@ -75,7 +75,7 @@ public class Boss : BossBase
 
     private void Attack01()
     {
-        Quaternion quaternion = Quaternion.Euler(transform.forward);
+        Quaternion quaternion = Quaternion.Euler(-transform.forward);
         if(!attackFlag)
         {
             Instantiate(attack[0], attackPoint[0].transform.position, quaternion, attackParent.transform);
@@ -91,7 +91,7 @@ public class Boss : BossBase
     private void Attack01TOIdle()
     {
 
-        Quaternion quaternion = Quaternion.Euler(transform.forward);
+        Quaternion quaternion = Quaternion.Euler(-transform.forward);
 
         Instantiate(damageArea, attackPoint[0].transform.position, quaternion, daParent.transform);
 
@@ -101,7 +101,7 @@ public class Boss : BossBase
 
     private void Attack02()
     {
-        Quaternion quaternion = Quaternion.Euler(0,0,1);
+        Quaternion quaternion = Quaternion.Euler(0,180,0);
         if (!attackFlag)
         {
             Instantiate(attack[1], attackPoint[1].transform.position, quaternion, attackParent.transform);
@@ -117,7 +117,7 @@ public class Boss : BossBase
     private void Attack02ToIdle()
     {
 
-        Quaternion quaternion = Quaternion.Euler(0,-1,0);
+        Quaternion quaternion = Quaternion.Euler(0,1,0);
 
         Instantiate(damageArea, attackPoint[1].transform.position, quaternion, daParent.transform);
 

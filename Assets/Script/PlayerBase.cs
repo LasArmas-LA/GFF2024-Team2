@@ -86,6 +86,7 @@ public class PlayerBase : MonoBehaviour
 
     public bool canActionFlag = false;
     public bool moveFlag = false;
+    public bool CPFlag = false; 
 
     [SerializeField]
     public LineRenderer lineRenderer = null;
@@ -108,7 +109,14 @@ public class PlayerBase : MonoBehaviour
         get { return moveFlag; }
     }
 
-
+    public bool SetCPFlag
+    {
+        set { CPFlag = value; }
+    }
+    public bool GetCPFlag
+    {
+        get { return CPFlag; }
+    }
 
 
     public void Idle()
@@ -131,7 +139,7 @@ public class PlayerBase : MonoBehaviour
         //LineÇÃà íuÇì¸óÕ
         Vector3 startPos = this.transform.position;
         startPos.y = 0.1f;
-        Vector3 endPos = movePoint.transform.position;
+        Vector3 endPos = moveTarget.transform.position;
         endPos.y = 0.1f;
         var positions = new Vector3[]
         {
@@ -142,8 +150,8 @@ public class PlayerBase : MonoBehaviour
         //LineèoóÕ
         lineRenderer.SetPositions(positions);
 
-        Move(movePoint);
-        TargetRot(movePoint);
+        Move(moveTarget);
+        TargetRot(moveTarget);
     }
 
     public void MovetoBoss()
@@ -152,9 +160,10 @@ public class PlayerBase : MonoBehaviour
         TargetRot(boss);
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         TargetRot(boss);
+        
     }
 
     public void Move(GameObject target)

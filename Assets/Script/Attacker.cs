@@ -21,14 +21,15 @@ public class Player1 : PlayerBase
 
         lineRenderer.enabled = false;
     }
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         defRot = canvas.transform.rotation;
     }
-
-
-
 
 
     // Update is called once per frame
@@ -58,14 +59,14 @@ public class Player1 : PlayerBase
         float ptplength = Vector3.Distance(transform.position, moveTarget.transform.position);
         float ptblength = Vector3.Distance(transform.position, boss.transform.position);
 
-        SelectPoint point = movePoint.GetComponent<SelectPoint>();
+
         //移動させる
-        if (ptplength >= positionRange && point.GetCPFlag)
+        if (ptplength >= positionRange && CPFlag)
         {
             mode = playerMode.MovetoTarget;
         }
         //目的地を入力でフラグfalse
-        else if (ptplength <= positionRange && point.GetCPFlag)
+        else if (ptplength <= positionRange && CPFlag)
         {
             mode = playerMode.Idle;
 
@@ -73,7 +74,7 @@ public class Player1 : PlayerBase
 
             moveTarget.SetActive(false);
 
-            point.SetCPFlag = false;
+            CPFlag = false;
 
         }
 
