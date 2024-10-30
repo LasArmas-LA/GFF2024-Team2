@@ -6,7 +6,9 @@ public class Player2 : PlayerBase
 {
 
     private Quaternion defRot;
-    private void Awake()
+
+    // Start is called before the first frame update
+    void Start()
     {
         moveTarget.SetActive(false);
 
@@ -21,10 +23,7 @@ public class Player2 : PlayerBase
         buttonText.text = "Standing By";
 
         lineRenderer.enabled = false;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+
         defRot = canvas.transform.rotation;
     }
 
