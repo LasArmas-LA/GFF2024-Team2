@@ -5,9 +5,10 @@ using UnityEngine;
 public class Player1 : PlayerBase
 { 
     private Quaternion defRot;  
-    private void Awake()
-    {
 
+    // Start is called before the first frame update
+    void Start()
+    {
         moveTarget.SetActive(false);
         canActionFlag = false;
         moveFlag = false;
@@ -20,14 +21,7 @@ public class Player1 : PlayerBase
         buttonText.text = "Standing By";
 
         lineRenderer.enabled = false;
-    }
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
         defRot = canvas.transform.rotation;
     }
 
@@ -122,7 +116,7 @@ public class Player1 : PlayerBase
     private void DebugLogOutput()
     {
         SelectPoint point = movePoint.GetComponent<SelectPoint>();
-        Debug.Log(moveFlag);
+       
     }
 
     public override void Skils()

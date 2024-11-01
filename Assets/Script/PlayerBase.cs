@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 
 
@@ -33,6 +34,9 @@ public class PlayerBase : MonoBehaviour
 
     [SerializeField]
     public Canvas canvas = null;
+
+    [SerializeField]
+    public GameObject damage = null;
 
 
     [SerializeField]
@@ -86,7 +90,8 @@ public class PlayerBase : MonoBehaviour
 
     public bool canActionFlag = false;
     public bool moveFlag = false;
-    public bool CPFlag = false; 
+    public bool CPFlag = false;
+    public bool attackedFlag = false;
 
     [SerializeField]
     public LineRenderer lineRenderer = null;
@@ -163,7 +168,7 @@ public class PlayerBase : MonoBehaviour
     public virtual void Attack()
     {
         TargetRot(boss);
-        
+        Damage();
     }
 
     public void Move(GameObject target)
@@ -193,6 +198,18 @@ public class PlayerBase : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, qutRot, rotationValue * Time.deltaTime);
 
 
+    }
+
+    public virtual async void Damage()
+    {
+        DamageMath damageMath = damage.GetComponent<DamageMath>();
+        if(!attackedFlag)
+        {
+            attackedFlag = true;
+            damageMath.DamagePlus((int)playerAtk);
+            await Task.Delay(1000);
+            attackedFlag = false;
+        }
     }
 
 

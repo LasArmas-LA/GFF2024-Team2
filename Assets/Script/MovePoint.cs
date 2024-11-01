@@ -46,8 +46,6 @@ public class SelectPoint : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Ground"))
                 {
-                    
-                   // transform.position = new Vector3(hit.point.x, 0, hit.point.z);
 
                     if (player1.GetMoveFlag)
                     {
